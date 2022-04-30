@@ -15,7 +15,7 @@
                 <input type="text" placeholder="Enter a city" autocomplete="off" />
                 <input type="submit" value="Search" />
             </form>    
-            <div class="row">   
+            <div class="row" id="location-info">   
                 <div class="col">           
                     <ul>
                         <li> 
@@ -34,8 +34,10 @@
             </div> 
             <div class="row">
                 <div class="col-6">
-                    <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="icon">
-                    26°C|F
+                    <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="icon" id="icon">
+                    <div id="temperature">26</div>
+                    <div id="temp-unit">°C|°F</div>
+                    
                 </div>           
                 <div class="col-6">
                     <ul>
@@ -50,14 +52,15 @@
                         </li>                              
                     </ul>
                 </div>             
-            </div>
-            <div>
-                <a href="https://github.com/claratran2303/Ngas-weatherapp-w7">
-                    Open-source code
-                </a>
-                by Nga Tran
-            </div>
+            </div>           
         </div> 
+        <div class="footer">
+            <a href="https://github.com/claratran2303/
+            Ngas-weatherapp-w7"target="_blank">
+                Open-source code
+            </a>
+            by Nga Tran
+        </div>
         <script src="src/funtions.js"></script>
     </div>
 </body>
