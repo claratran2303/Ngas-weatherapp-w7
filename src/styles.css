@@ -51,7 +51,7 @@ li{
     margin-bottom: 20px;
 }
 
-#icon{
+#iconID{
     margin-right: 5px;
     height: 64px;
     width: 64px;
@@ -65,11 +65,27 @@ li{
     vertical-align: middle;
     display: inline;
 }
-#temp-unit{
+#temp-unitID{
     vertical-align: top;
     display: inline;
     font-size: 16px;
+    
 }
+#F-degreeID,#C-degreeID {
+    text-decoration: none;
+}
+
+.active{
+    color:#F999B7;  
+    cursor: default;  
+}
+.active :hover{
+    text-decoration: none;
+    color:#F999B7; 
+}
+
+
+
 
 
 

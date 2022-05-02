@@ -22,7 +22,6 @@ function formatDate(timestamp){
     return `${day} ${hours}:${minutes}`;
 }
 
-
 function displayTemperature(response){   
     let temp=document.querySelector("#tempID");
     let city=document.querySelector("#cityID");
@@ -32,6 +31,9 @@ function displayTemperature(response){
     let datetime=document.querySelector("#datetimeID")
     let icon=document.querySelector("#iconID");
     let iconCode=(response.data.weather[0].icon);
+    
+    CDegreeTemp= response.data.main.temp;
+
     temp.innerHTML=Math.round(response.data.main.temp);
     city.innerHTML=(response.data.name);
     status.innerHTML=(response.data.weather[0].description)
@@ -56,7 +58,33 @@ function handleSubmit(event){
     console.log(cityInput.value);
 }
 
-search("New York");
+function displayCDegree(event){
+    event.preventDefault();
+    CDegreeLink.classList.add("active");
+    FDegreeLink.classList.remove("active");
+    let temp=document.querySelector("#tempID");
+    temp.innerHTML=Math.round(CDegreeTemp);
+}
+
+function displayFDegree(event){
+    event.preventDefault();
+    let FDegreeTemp=(CDegreeTemp*9)/5+32;
+   // remove the active class the C degree link
+    CDegreeLink.classList.remove("active");
+    FDegreeLink.classList.add("active");
+    let temp=document.querySelector("#tempID");
+    temp.innerHTML=Math.round(FDegreeTemp);
+}
+
+let CDegreeTemp=null;
 
 let searchForm=document.querySelector("#search-formID");
 searchForm.addEventListener("submit",handleSubmit);
+
+let FDegreeLink=document.querySelector("#F-degreeID");
+FDegreeLink.addEventListener("click", displayFDegree);
+
+let CDegreeLink=document.querySelector("#C-degreeID");
+CDegreeLink.addEventListener("click", displayCDegree);
+
+search("Ho Chi Minh City");
