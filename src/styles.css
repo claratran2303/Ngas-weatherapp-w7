@@ -17,6 +17,9 @@ ul{
     margin: 0;
     padding: 0;
 }
+li :first-letter{
+    text-transform: capitalize;
+}
 
 li{
     list-style: none;
@@ -25,8 +28,10 @@ li{
     font-weight: 100;
     line-height: 19px;
     margin: 0;
-    padding: 0;
+    padding: 0;  
+   
 }
+
 
 .app,.footer{
     max-width: 600px;
@@ -52,7 +57,7 @@ li{
     width: 64px;
     }
 
-#temperature{
+#tempID{
     color:#F2789F;
     font-size: 64px;
     line-height: 64px;
@@ -65,5 +70,7 @@ li{
     display: inline;
     font-size: 16px;
 }
+
+
 
 
