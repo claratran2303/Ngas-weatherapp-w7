@@ -31,10 +31,13 @@ function displayTemperature(response){
     let datetime=document.querySelector("#datetimeID")
     let icon=document.querySelector("#iconID");
     let iconCode=(response.data.weather[0].icon);
-    
+    let tempValue=Math.round(response.data.main.temp)
+    if (tempValue<10){
+        tempValue=`0${tempValue}`
+    }
     CDegreeTemp= response.data.main.temp;
 
-    temp.innerHTML=Math.round(response.data.main.temp);
+    temp.innerHTML=tempValue;
     city.innerHTML=(response.data.name);
     status.innerHTML=(response.data.weather[0].description)
     humidity.innerHTML=(response.data.main.humidity);
