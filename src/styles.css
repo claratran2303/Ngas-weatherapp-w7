@@ -84,7 +84,22 @@ li{
     color:#F999B7; 
 }
 
+.forecast{
+    margin-top: 20px;
+}
 
+.col-forecast{
+    text-align: center;
+}
+.forecast-temp{
+    font-size: 13px;
+}
+.forecast-day{
+    color:#F2789F;
+}
+.forecast-temp-min{
+    opacity: 0.8;
+}
 
 
 

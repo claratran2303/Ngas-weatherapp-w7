@@ -91,3 +91,5 @@ let CDegreeLink=document.querySelector("#C-degreeID");
 CDegreeLink.addEventListener("click", displayCDegree);
 
 search("Ho Chi Minh City");
+
+
