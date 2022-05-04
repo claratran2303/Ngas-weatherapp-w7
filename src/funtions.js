@@ -22,6 +22,40 @@ function formatDate(timestamp){
     return `${day} ${hours}:${minutes}`;
 }
 
+function showForecast(){
+    let forecast=document.querySelector("#forecastID");
+
+    let forecastHTML="";
+    let forecastDays=["Thu","Fri","Sat","Sun"];
+    forecastDays.forEach(function(day){
+        forecastHTML=forecastHTML+
+    `    
+    <div class="col-2 col-forecast">
+        <div class="forecast-day">${day}</div>
+            <img src="https://ssl.gstatic.com/onebox/weather/64/rain_s_cloudy.png" alt="" width="42">
+            <div class="forecast-temp"> 
+                <span class="forecast-temp-max">18°</span>
+                <span class="forecast-temp-min">12°</span>
+            </div>
+        </div>  
+    </div>    
+    `;
+    });
+    
+    forecast.innerHTML=forecastHTML;
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    
+
+}
+
 function displayTemperature(response){   
     let temp=document.querySelector("#tempID");
     let city=document.querySelector("#cityID");
@@ -91,5 +125,5 @@ let CDegreeLink=document.querySelector("#C-degreeID");
 CDegreeLink.addEventListener("click", displayCDegree);
 
 search("Ho Chi Minh City");
-
+showForecast();
 
