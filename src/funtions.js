@@ -1,3 +1,17 @@
+
+function formatForecastDay(timestamp){
+    let date=new Date(timestamp*1000);  
+    let days=[
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"];
+    return `${days[date.getDay()]}`;
+}
+
 function formatDate(timestamp){
     let date=new Date(timestamp);
     let hours=date.getHours();
@@ -12,36 +26,39 @@ function formatDate(timestamp){
         "Saturday"];
     let day=days[date.getDay()];
 
+
     if(minutes<10){
         minutes=`0${minutes}`;
     }
     if(hours<10){
         hours=`0${hours}`;
     }
-       
+   
     return `${day} ${hours}:${minutes}`;
+   
 }
 
 function showForecast(response){
-    console.log(response.data.daily)
+    console.log(response.data.daily);
+    let forecastData=response.data.daily;
     let forecast=document.querySelector("#forecastID");
     let forecastHTML="";
-    let forecastDays=["Thu","Fri","Sat","Sun"];
-    forecastDays.forEach(function(day){
-        forecastHTML=forecastHTML+
-    `    
-    <div class="col-2 col-forecast">
-        <div class="forecast-day">${day}</div>
-            <img src="https://ssl.gstatic.com/onebox/weather/64/rain_s_cloudy.png" alt="" width="42">
-            <div class="forecast-temp"> 
-                <span class="forecast-temp-max">18°</span>
-                <span class="forecast-temp-min">12°</span>
-            </div>
-        </div>  
-    </div>    
-    `;
+    forecastData.forEach(function(dailyForecastData,index){
+       if (index<6){
+            forecastHTML=forecastHTML+
+            `    
+            <div class="col-2 col-forecast">
+                <div class="forecast-day">${formatForecastDay(dailyForecastData.dt)}</div>
+                    <img src="http://openweathermap.org/img/wn/${dailyForecastData.weather[0].icon}@2x.png" alt="" width="42">
+                    <div class="forecast-temp"> 
+                        <span class="forecast-temp-max">${Math.round(dailyForecastData.temp.max)}°</span>
+                        <span class="forecast-temp-min">${Math.round(dailyForecastData.temp.min)}°</span>
+                    </div>
+                </div>  
+            </div>    
+            `;
+       };
     });
-    
     forecast.innerHTML=forecastHTML;
 }
 
@@ -66,7 +83,7 @@ function displayTemperature(response){
         tempValue=`0${tempValue}`
     }
     CDegreeTemp= response.data.main.temp;
-
+    
     temp.innerHTML=tempValue;
     city.innerHTML=(response.data.name);
     status.innerHTML=(response.data.weather[0].description)
@@ -122,6 +139,8 @@ FDegreeLink.addEventListener("click", displayFDegree);
 let CDegreeLink=document.querySelector("#C-degreeID");
 CDegreeLink.addEventListener("click", displayCDegree);
 
+
+    
 search("Ho Chi Minh City");
 
 
