@@ -22,9 +22,9 @@ function formatDate(timestamp){
     return `${day} ${hours}:${minutes}`;
 }
 
-function showForecast(){
+function showForecast(response){
+    console.log(response.data.daily)
     let forecast=document.querySelector("#forecastID");
-
     let forecastHTML="";
     let forecastDays=["Thu","Fri","Sat","Sun"];
     forecastDays.forEach(function(day){
@@ -43,17 +43,13 @@ function showForecast(){
     });
     
     forecast.innerHTML=forecastHTML;
-   
-   
-   
-   
-   
-   
-   
-   
-   
-    
+}
 
+function getForecast(coordinates){
+    console.log(coordinates);
+    let apiKey="d3c8204f4c4db0d26947b9ed2cb7ac82";
+    let apiUrl=`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lat}&exclude={part}&appid=${apiKey}&units=metric`
+    axios.get(apiUrl).then(showForecast);
 }
 
 function displayTemperature(response){   
@@ -80,6 +76,8 @@ function displayTemperature(response){
     icon.setAttribute(
         "src",
         `http://openweathermap.org/img/wn/${iconCode}@2x.png`)
+
+    getForecast(response.data.coord);
 }
 
 function search(city){
@@ -125,5 +123,5 @@ let CDegreeLink=document.querySelector("#C-degreeID");
 CDegreeLink.addEventListener("click", displayCDegree);
 
 search("Ho Chi Minh City");
-showForecast();
+
 
