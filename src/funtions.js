@@ -38,9 +38,9 @@ function formatDate(timestamp){
    
 }
 
-function showForecast(response){
-    console.log(response.data.daily);
+function showForecast(response){   
     let forecastData=response.data.daily;
+    console.log(forecastData)
     let forecast=document.querySelector("#forecastID");
     let forecastHTML="";
     forecastData.forEach(function(dailyForecastData,index){
@@ -60,17 +60,19 @@ function showForecast(response){
        };
     });
     forecast.innerHTML=forecastHTML;
+    
 }
 
 function getForecast(coordinates){
-    console.log(coordinates);
-    let apiKey="d3c8204f4c4db0d26947b9ed2cb7ac82";
-    let apiUrl=`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lat}&exclude={part}&appid=${apiKey}&units=metric`
+    
+    let apiUrl=`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lat}&exclude={part}&appid=${apiKey}&units=${unitDegree}`
     axios.get(apiUrl).then(showForecast);
+    console.log(apiUrl);
 }
 
 function displayTemperature(response){   
     let temp=document.querySelector("#tempID");
+    let tempUnit=document.querySelector("#degreeID");
     let city=document.querySelector("#cityID");
     let status=document.querySelector("#statusID");
     let humidity=document.querySelector("#humidityID");
@@ -79,12 +81,17 @@ function displayTemperature(response){
     let icon=document.querySelector("#iconID");
     let iconCode=(response.data.weather[0].icon);
     let tempValue=Math.round(response.data.main.temp)
+    if(unitDegree=="metric"){
+        unitSymbol=`°C`;
+    }else {
+        unitSymbol=`°F`;
+    }
+    
     if (tempValue<10){
         tempValue=`0${tempValue}`
     }
-    CDegreeTemp= response.data.main.temp;
-    
     temp.innerHTML=tempValue;
+    tempUnit.innerHTML=unitSymbol;
     city.innerHTML=(response.data.name);
     status.innerHTML=(response.data.weather[0].description)
     humidity.innerHTML=(response.data.main.humidity);
@@ -97,50 +104,48 @@ function displayTemperature(response){
     getForecast(response.data.coord);
 }
 
-function search(city){
-    let apiKey="d3c8204f4c4db0d26947b9ed2cb7ac82";
-    let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+function search(){
+    let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unitDegree}`
     axios.get(apiUrl).then(displayTemperature);
 }
 
 function handleSubmit(event){
     event.preventDefault();
     let cityInput=document.querySelector("#cityInputID");
-    search(cityInput.value);
-    console.log(cityInput.value);
+    unitDegree=getUnitValue();
+    console.log(unitDegree);    
+    city=cityInput.value;
+    // console.log(city);
+    search();
 }
 
-function displayCDegree(event){
-    event.preventDefault();
-    CDegreeLink.classList.add("active");
-    FDegreeLink.classList.remove("active");
-    let temp=document.querySelector("#tempID");
-    temp.innerHTML=Math.round(CDegreeTemp);
-}
+// function displayCDegree(event){
+//     event.preventDefault();
+//     CDegreeLink.classList.add("active");
+//     FDegreeLink.classList.remove("active");
+//     let temp=document.querySelector("#tempID");
+//     temp.innerHTML=Math.round(CDegreeTemp);
+// }
 
-function displayFDegree(event){
-    event.preventDefault();
-    let FDegreeTemp=(CDegreeTemp*9)/5+32;
-   // remove the active class the C degree link
-    CDegreeLink.classList.remove("active");
-    FDegreeLink.classList.add("active");
-    let temp=document.querySelector("#tempID");
-    temp.innerHTML=Math.round(FDegreeTemp);
+// function displayFDegree(event){
+//     event.preventDefault();
+//     let FDegreeTemp=(CDegreeTemp*9)/5+32;
+//    // remove the active class the C degree link
+//     CDegreeLink.classList.remove("active");
+//     FDegreeLink.classList.add("active");
+//     let temp=document.querySelector("#tempID");
+//     temp.innerHTML=Math.round(FDegreeTemp);
+// }
+function getUnitValue(){
+    unitValue=document.getElementById("unitInputID").value;
+    return unitValue;
 }
-
-let CDegreeTemp=null;
 
 let searchForm=document.querySelector("#search-formID");
 searchForm.addEventListener("submit",handleSubmit);
 
-let FDegreeLink=document.querySelector("#F-degreeID");
-FDegreeLink.addEventListener("click", displayFDegree);
-
-let CDegreeLink=document.querySelector("#C-degreeID");
-CDegreeLink.addEventListener("click", displayCDegree);
-
-
-    
-search("Ho Chi Minh City");
-
-
+let apiKey="d3c8204f4c4db0d26947b9ed2cb7ac82";    
+let city="Ho Chi Minh City"
+let unitDegree="metric";
+let unitSymbol=`°C`;
+search(city);

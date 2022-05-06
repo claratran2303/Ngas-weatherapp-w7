@@ -13,7 +13,12 @@
     <div class="container">
         <div class="app">
             <form id="search-formID"> 
-                <input type="text" placeholder="Enter a city" autocomplete="off" id="cityInputID" />
+                <input type="text" placeholder="Enter a city" autocomplete="on" id="cityInputID" />
+                <input type="text" list="unit" id="unitInputID" size="2" placeholder="Unit" onchange="getUnitValue();" autocomplete="off">
+                    <datalist id="unit">
+                    <option value="metric">
+                    <option value="imperial">  
+                    </datalist>
                 <input type="submit" value="Search" id="searchButtonID" />
             </form>    
             <div class="row" id="location-info">   
@@ -36,9 +41,7 @@
                <div class="row"></div>     <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="icon" id="iconID">
                     <div id="tempID"></div>
                     <span id="temp-unitID">
-                        <a href="#", class="active", id="C-degreeID">°C</a>
-                        |
-                        <a href="#", id="F-degreeID">°F</a>
+                        <a href="#", class="active", id="degreeID">°X</a>                       
                     </span>                
                 </div>           
                 <div class="col-6">
